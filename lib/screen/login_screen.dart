@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 
   static void toLoginScreen(BuildContext context) {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context, rootNavigator: true).pushReplacement(
         MaterialPageRoute(builder: (context) {
           return ChangeNotifierProvider(
               create: (context) => LoginViewModel(context: context),

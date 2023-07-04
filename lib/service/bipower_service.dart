@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutterapidemo/app.dart';
 import 'package:flutterapidemo/model/attendance_history.dart';
 import 'package:flutterapidemo/screen/login_screen.dart';
 import 'package:http/http.dart' as http;
@@ -76,10 +77,8 @@ class NetworkService {
 
   JsonMap? checkResponse(http.Response response) {
     if (response.statusCode == 401) {
-
-      if (buildContext != null) {
-        LoginScreen.toLoginScreen(buildContext!);
-      }
+      jwtToken = null;
+      LoginScreen.toLoginScreen(App.navigatorKey.currentContext!);
     } else {
       return jsonDecode(response.body);
     }
@@ -87,8 +86,13 @@ class NetworkService {
   }
 
   Future<Result<User>> login(String username, String password) async {
-    var headers = await getDefaultHeaders();
-    headers['Authorization'] = 'Basic YXV0aG9yaXphdGlvbl9jbGllbnRfaWQ6YmNjczM=';
+    var headers = {
+      'Accept':'application/json, text/plain, */*',
+      'Accept-Language':'vi-VN',
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YXV0aG9yaXphdGlvbl9jbGllbnRfaWQ6YmNjczM='
+    };
+    //headers['Authorization'] = 'Basic YXV0aG9yaXphdGlvbl9jbGllbnRfaWQ6YmNjczM=';
     var formData = {
       'grant_type': 'password',
       'username': username,

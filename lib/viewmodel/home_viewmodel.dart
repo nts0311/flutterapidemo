@@ -20,6 +20,7 @@ class HomeViewModel extends ChangeNotifier {
       error = null;
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('jwt');
+      networkService.jwtToken = null;
     } else {
       error = result.error ?? "Có lỗi xảy ra!";
     }

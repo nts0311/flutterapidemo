@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapidemo/app.dart';
 import 'package:flutterapidemo/screen/home.dart';
 import 'package:flutterapidemo/service/bipower_service.dart';
 import 'package:flutterapidemo/viewmodel/home_viewmodel.dart';
@@ -15,14 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: App.navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Builder(
         builder: (context) {
-
-          NetworkService.instance.buildContext = context;
-
           return ChangeNotifierProvider(
             create: (context) => HomeViewModel(),
             child: const HomeScreen(),
